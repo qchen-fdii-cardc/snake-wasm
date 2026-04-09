@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snake — Rust/WASM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🐍 Snake</h1>
+      <p class="subtitle">Rust + WebAssembly</p>
+    </header>
+
+    <div class="game-wrapper">
+      <div class="hud">
+        <div class="hud-item">
+          <span class="hud-label">Score</span>
+          <span class="hud-value" id="score">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">High Score</span>
+          <span class="hud-value" id="high-score">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Length</span>
+          <span class="hud-value" id="length">3</span>
+        </div>
+      </div>
+
+      <div class="canvas-wrapper">
+        <canvas id="game-canvas"></canvas>
+        <div class="overlay" id="overlay">
+          <div class="overlay-content">
+            <h2 id="overlay-title">Snake</h2>
+            <p id="overlay-message">Use arrow keys or WASD to move</p>
+            <button id="start-btn" class="btn">Press Enter or Click to Start</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-info">
+        <span>↑↓←→ / WASD — Move</span>
+        <span>P / Esc — Pause</span>
+        <span>Enter — Start / Restart</span>
+      </div>
+    </div>
+
+    <!-- Mobile controls -->
+    <div class="mobile-controls">
+      <div class="dpad">
+        <button class="dpad-btn dpad-up"    data-key="ArrowUp">▲</button>
+        <button class="dpad-btn dpad-left"  data-key="ArrowLeft">◀</button>
+        <button class="dpad-btn dpad-right" data-key="ArrowRight">▶</button>
+        <button class="dpad-btn dpad-down"  data-key="ArrowDown">▼</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="index.js"></script>
+</body>
+</html>
