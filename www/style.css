@@ -1,0 +1,225 @@
+/* ============================================================
+   Snake WASM — Stylesheet
+   ============================================================ */
+
+/* ----- Reset & base ----- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #0d0d0d;
+  --surface:     #1a1a2e;
+  --border:      #2a2a4a;
+  --accent:      #4ade80;  /* bright green */
+  --accent-dark: #16a34a;
+  --head:        #86efac;  /* light green */
+  --food:        #f87171;  /* red */
+  --text:        #e2e8f0;
+  --muted:       #94a3b8;
+  --shadow:      rgba(74, 222, 128, 0.15);
+  --cell-size:   24px;
+  --board-cols:  20;
+  --board-rows:  20;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+}
+
+/* ----- Layout ----- */
+.container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+header {
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  text-shadow: 0 0 24px var(--shadow);
+  letter-spacing: 0.05em;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* ----- HUD ----- */
+.hud {
+  display: flex;
+  gap: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.6rem 1.5rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.hud-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.hud-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----- Canvas ----- */
+.canvas-wrapper {
+  position: relative;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 40px var(--shadow);
+}
+
+#game-canvas {
+  display: block;
+  background: var(--surface);
+  image-rendering: pixelated;
+}
+
+/* ----- Overlay ----- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#overlay-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+#overlay-message {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ----- Buttons ----- */
+.btn {
+  background: var(--accent-dark);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn:hover  { background: var(--accent); color: #000; }
+.btn:active { transform: scale(0.97); }
+
+/* ----- Controls hint ----- */
+.controls-info {
+  display: flex;
+  gap: 1.5rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ----- Mobile D-pad ----- */
+.mobile-controls {
+  display: none;
+}
+
+.dpad {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.dpad-btn {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.1s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.dpad-btn:active { background: var(--border); }
+
+.dpad-up    { top: 0;    left: 42px; }
+.dpad-down  { bottom: 0; left: 42px; }
+.dpad-left  { top: 42px; left: 0;    }
+.dpad-right { top: 42px; right: 0;   }
+
+/* Show D-pad on touch devices */
+@media (pointer: coarse) {
+  .mobile-controls { display: flex; justify-content: center; margin-top: 0.5rem; }
+  .controls-info   { display: none; }
+}
+
+/* ----- Responsive canvas scaling ----- */
+@media (max-width: 520px) {
+  :root { --cell-size: 16px; }
+  header h1 { font-size: 1.8rem; }
+}
